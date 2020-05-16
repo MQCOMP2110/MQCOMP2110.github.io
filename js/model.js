@@ -20,8 +20,7 @@ const Model = {
         )
         .then(
             (data) => {
-                this.data.people = data;
-
+                this.data.people = data.people;
                 let event = new CustomEvent("modelUpdated");
                 window.dispatchEvent(event);
             }
