@@ -3,7 +3,7 @@ import * as views from './views.js';
 
 const Model = {
 
-    people_url: '/api/people',   
+    people_url: '/data.json',   
     
     // this will hold the data stored in the model
     data: {
