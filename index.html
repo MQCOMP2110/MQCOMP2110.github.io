@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <!-- Include Handlebars from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="js/main.js" type=module defer></script>
+  </head>
+  <body>
+
+    <form id=person-form>
+      <label for=name>Name:</label>
+      <input name=name>
+      <label for=age>Age:</label>
+      <input name=age>
+      <input type=submit>
+    </form>
+
+      <div id="blocks">
+        <div id="list"></div>
+        <div id="person"></div>
+      </div>
+
+  <footer>
+    <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
+  </footer>
+
+
+  <!-- Templates -->
+
+        <script id="people-list-template" type="text/x-handlebars-template">
+          <h2>List of People</h2>
+            <table>
+                {{#each people}}
+                    <tr><td class=person-name data-id={{_id}}>{{name}}</td> <td>{{age}}</td></tr>
+                {{/each}}
+            </table>
+        </script>
+
+        <script id="person-template" type="text/x-handlebars-template">
+          <img src="{{picture}}" alt="{{name}}">
+          <ul>
+            <li>{{name}}</li>
+            <li>Age: {{age}}</li>
+          </ul>
+        </script>
+  </body>
+</html>
