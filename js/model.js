@@ -1,11 +1,9 @@
 export {Model};
-import * as views from './views.js';
 
 const Model = {
 
-    people_url: '/data.json',   
-    
-    // this will hold the data stored in the model
+    people_url:  "https://v2-api.sheety.co/dbb395f00a8bc7765eca3996d57d0c65/mqcomp2110Sample/people",
+
     data: {
         people: [],
     },
@@ -36,22 +34,32 @@ const Model = {
         let people = this.get_people();
 
         for(let i=0; i<people.length; i++) {
-            if (people[i]._id === id) {
+            if (people[i].id == id) {
                 return people[i];
             }
         }
     },
 
-    get_people_over_30: function() {
+    add_person: function(person) {
 
-        let people = this.get_people();
-        let oldies = [];
-        for (let i=0; i<people.length; i++) {
-            if (people[i].age >= 30) {
-                oldies.push(people[i]);
-            }
-        }
-        return oldies;
+        fetch(this.people_url, {
+            method: "POST",    
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({'person': person})
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            this.data.people.push(data.person);
+            const event = new CustomEvent("personAdded");
+            window.dispatchEvent(event);
+
+        })
+
+    
     }
 
 };

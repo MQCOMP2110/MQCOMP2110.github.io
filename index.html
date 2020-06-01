@@ -13,8 +13,10 @@
   <body>
 
     <form id=person-form>
-      <label for=name>Name:</label>
-      <input name=name>
+      <label for=firstName>First Name:</label>
+      <input name=firstName>
+      <label for=lastName>Last Name:</label>
+      <input name=lastName>
       <label for=age>Age:</label>
       <input name=age>
       <input type=submit>
@@ -36,15 +38,15 @@
           <h2>List of People</h2>
             <table>
                 {{#each people}}
-                    <tr><td class=person-name data-id={{_id}}>{{name}}</td> <td>{{age}}</td></tr>
+                    <tr><td class=person-name data-id={{id}}>{{firstName}} {{lastName}}</td> <td>{{age}}</td></tr>
                 {{/each}}
             </table>
         </script>
 
         <script id="person-template" type="text/x-handlebars-template">
-          <img src="{{picture}}" alt="{{name}}">
+          <img src="http://robohash.org/{{firstName}}{{lastName}}" alt="{{name}}">
           <ul>
-            <li>{{name}}</li>
+            <li>{{firstName}} {{lastName}}</li>
             <li>Age: {{age}}</li>
           </ul>
         </script>

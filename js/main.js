@@ -2,17 +2,16 @@ import * as views from './views.js';
 import {Model} from './model.js';
 
  
-window.addEventListener("modelUpdated", function(e) {
+window.addEventListener("modelUpdated", redraw);
+window.addEventListener('personAdded', redraw);
 
-    console.log('modelUpdated triggered');
+function redraw() {
 
-    let people = Model.get_people(); 
-
+    let people = Model.get_people();     
     views.listPeopleView("list", people);
-
     bindings();
+};
 
-});
 
 function person_click_handler() {
 
@@ -25,21 +24,14 @@ function person_click_handler() {
 
 function person_form_handler() {
 
-    console.log(this);
+    const formdata = new FormData(this);
 
-    let formdata = new FormData(this);
-
-    fetch('/api/people', {
-        method: "POST",
-        body: formdata
-    })
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        console.log(data);
-        views.personView("person", data.person);
-    })
+    const person = {
+        firstName: formdata.get('firstName'),
+        lastName: formdata.get('lastName'),
+        age: formdata.get('age')
+    }
+    Model.add_person(person);
 
     return false;
 }
